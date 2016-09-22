@@ -1,0 +1,27 @@
+﻿@model AppleStore.Domain.Entities.Cart
+
+
+
+<div class="navbar-right hidden-xs">
+    @Html.ActionLink("Заказать", "Index", "Cart",
+    new { returnUrl = Request.Url.PathAndQuery },
+            new { @class = "btn btn-danger navbar-btn" })
+</div>
+
+
+
+<div class="navbar-right visible-xs">
+    <a href=@Url.Action("Index", "Cart", new { returnUrl = Request.Url.PathAndQuery })
+       class="btn btn-default navbar-btn">
+        <span class="glyphicon glyphicon-shopping-cart"></span>
+    </a>
+</div>
+
+<div class="navbar-text navbar-right">
+    <span style="font-family: Arial, Helvetica, sans-serif;
+     color: #ffffff;font-size: 13px">BASKET</span>
+    <span style="color: #d3cccc">
+        @Model.Lines.Sum(x => x.Quantity) шт
+        @Model.ComputeTotalValue() грн
+    </span>
+</div>

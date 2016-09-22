@@ -1,0 +1,18 @@
+﻿@using AppleStore.WebUI.Models
+@using AppleStore.WebUI.HtmlHelpers
+@model ProductListView
+
+@{
+    ViewBag.Title = "Товары";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+@foreach (var p in @Model.Products)
+{
+    @Html.Partial("ProductSummary",p)
+}
+
+<div class="btn-group pull-right">
+    @Html.Helper(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
+</div>

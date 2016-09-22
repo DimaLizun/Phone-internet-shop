@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">   
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCoLOxtLIz6eCdBfbjuTtO2Uc-kn7J6jV4"></script>
+    <link href="~/Content/HandStyle.css" rel="stylesheet" />
+    <link href="~/Content/ErrorStyles.css" rel="stylesheet" />
+
+    <title>@ViewBag.Title</title>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class=" navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <span class="hidden-xs"> Apple Intertnet Shop</span>
+                    <div class="visible-xs">Apple</div>
+                    <div class="visible-xs">Intertnet Shop</div>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li><a href="#contact">CONTACT</a></li>
+                    <li>@Html.Action("Summary", "Cart")</li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    @*<div class="navbar navbar-inverse" role="navigation" >
+            <a class="navbar-brand" href="#">
+                <span class="hidden-xs"> AppleStore - интернет магазин</span>
+                <div class="visible-xs">Apple</div>
+                <div class="visible-xs">Store</div>
+            </a>
+            @Html.Action("Summary", "Cart")
+        </div>*@
+
+    <div class="jumbotron text-center">
+        <h1>Company</h1>
+        <p>We specialize in blablabla</p>
+    </div>
+
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div id="categories" class="col-sm-3 hidden-xs">
+                @Html.Action("Menu", "Nav")
+            </div>
+
+            <div class="visible-xs">
+                @Html.Action("Menu", "Nav", new { horizontalNav = true })
+            </div>
+
+            <div class="col-xs-12 col-sm-8">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <div id="contact" class="container-fluid">
+        <div class="container-fluid bg-grey">
+            <h3 class="text-center">CONTACT</h3>
+            <div class="row">
+                    <div class="col-sm-5">
+                        <p>Contact us and we'll get back to you within 24 hours.</p>
+                        <p><span class="glyphicon glyphicon-map-marker"></span> Kiev,Ukraine</p>
+                        <p><span class="glyphicon glyphicon-phone"></span> +00 1515151515</p>
+                        <p><span class="glyphicon glyphicon-envelope"></span> myemail@something.com</p>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                            </div>
+                        </div>
+                        <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <button class="btn btn-default pull-right" type="submit">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+    <!-- Set height and width with CSS -->
+    <div id="googleMap" style="height:400px;width:100%;"></div>
+    <!-- Add Google Maps -->
+    <script>
+    
+        var myCenter = new google.maps.LatLng(50.43471193, 30.55709839);
+
+        function initialize() {
+            var mapProp = {
+                center: myCenter,
+                zoom: 12,
+                scrollwheel: false,
+                draggable: true,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            var marker = new google.maps.Marker({
+                position: myCenter,
+            });
+            marker.setMap(map);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+
+
+
+
+    <footer class="container-fluid text-center">
+        <a href="#myPage" title="To Top">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+        <p>© 2016, All rights reserved.</p>
+    </footer>
+
+    <script>
+    $(document).ready(function () {
+        // Add smooth scrolling to all links in navbar + footer link
+        $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
+
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+
+                // Prevent default anchor click behavior
+                event.preventDefault();
+
+                // Store hash
+                var hash = this.hash;
+
+                // Using jQuery's animate() method to add smooth page scroll
+                // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 900, function () {
+
+                    // Add hash (#) to URL when done scrolling (default click behavior)
+                    window.location.hash = hash;
+                });
+            } // End if
+        });
+    })
+    </script>
+
+    </body>
+</html>
